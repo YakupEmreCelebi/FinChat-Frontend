@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import PriceChart from '../components/PriceChart';
 import PortfolioChart from '../components/PortfolioChart';
 import ReactMarkdown from 'react-markdown';

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { LineChart, Line, ResponsiveContainer, YAxis, Tooltip } from 'recharts';
 
 // Component'in dışarıdan alacağı verinin tipini (Interface) belirliyoruz
@@ -16,7 +16,7 @@ export default function PriceChart({ data }: PriceChartProps) {
   return (
     <div className="mt-4 p-4 bg-white dark:bg-fin-dark rounded-xl border border-slate-200 dark:border-slate-700 w-full h-48">
       
-      <div className="w-full h-[250px]">
+      <div className="w-full h-62.5">
         <p className="text-xs font-semibold text-slate-500 mb-2">7 Günlük Fiyat Trendi (USD)</p>
 
         <ResponsiveContainer width="100%" height="100%">
