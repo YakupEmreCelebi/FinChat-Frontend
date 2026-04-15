@@ -22,7 +22,7 @@ export default function PortfolioChart({ data }: PortfolioChartProps) {
       </p>
       
       {/* ÇÖZÜM 1: ResponsiveContainer'ın çökmesini engellemek için h-[250px] ile kesin yükseklik verdik */}
-      <div className="relative w-full h-[250px]">
+      <div className="relative w-full h-62.5">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie

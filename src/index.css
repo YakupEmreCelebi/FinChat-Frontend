@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+@theme {
+  /* Özel renklerini buraya tanımlıyoruz (v4 yöntemi) */
+  --color-fin-light: #f8fafc;
+  --color-fin-dark: #0f172a;
+  --color-fin-card: #1e293b;
+  --color-fin-primary: #10b981;
+}
+
+/* Bu satır, "dark:" prefix'inin .dark sınıfı olan yerlerde çalışmasını sağlar */
+@variant dark (&:where(.dark, .dark *));
