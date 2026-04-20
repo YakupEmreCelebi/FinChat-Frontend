@@ -2,7 +2,7 @@
 
 Welcome to the frontend repository of **FinChat**, an intelligent financial assistant designed to provide real-time cryptocurrency data, interactive historical charts, and portfolio analysis through a conversational AI interface.
 
-🌍 **Live Demo:** [https://finchat-pcsqm1pir-yakupemrecelebis-projects.vercel.app/](https://finchat-pcsqm1pir-yakupemrecelebis-projects.vercel.app/)
+🌍 **Live Demo:** https://finchat-ochre.vercel.app/
 
 🔗 **Backend Repository:** [https://github.com/YakupEmreCelebi/FinChat-Backend](https://github.com/YakupEmreCelebi/FinChat-Backend)
 
