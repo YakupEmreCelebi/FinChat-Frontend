@@ -1,22 +1,28 @@
 import { LineChart, Line, ResponsiveContainer, YAxis, Tooltip } from 'recharts';
 
 interface PriceChartProps {
-  data: number[];
+  data: any;
 }
 
 export default function PriceChart({ data }: PriceChartProps) {
-  const formattedData = data.map((price, index) => ({
-    day: `Gün ${index + 1}`,
+  // GÜVENLİK: Eğer localStorage'da eski sohbetlerden kalan ham sayı dizisi varsa çökmesin
+  const isLegacy = Array.isArray(data);
+  const prices = isLegacy ? data : data.prices;
+  const title = isLegacy ? "Seçili Dönem Fiyat Trendi" : data.title;
+  const intervalLabel = isLegacy ? "Nokta" : data.interval;
+
+  // X ekseninde (tooltip'te) görünecek yazıları dinamik oluşturuyoruz
+  const formattedData = prices.map((price: number, index: number) => ({
+    label: `${intervalLabel} ${index + 1}`,
     price: price
   }));
 
   return (
-    // 1. DIŞ KUTU: h-48 sınıfını sildik, yüksekliği içeriğe göre otomatik ayarlanacak
     <div className="mt-4 p-4 bg-white dark:bg-fin-dark rounded-xl border border-slate-200 dark:border-slate-700 w-full">
       
-      <p className="text-xs font-semibold text-slate-500 mb-4">{data.length} Günlük Fiyat Trendi (USD)</p>
+      {/* BAŞLIK ARTIK DİNAMİK GELİYOR */}
+      <p className="text-xs font-semibold text-slate-500 mb-4">{title}</p>
 
-      {/* 2. İÇ KUTU: h-62.5 gibi geçersiz bir sınıf yerine grafiğe net bir yükseklik (h-48) verdik */}
       <div className="w-full h-48">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={formattedData}>
@@ -25,7 +31,9 @@ export default function PriceChart({ data }: PriceChartProps) {
             <Tooltip 
               contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
               formatter={(value: any) => [`$${Number(value).toLocaleString()}`, 'Fiyat']}
-              labelStyle={{ color: '#64748b' }}
+              labelStyle={{ color: '#64748b', fontWeight: 'bold', marginBottom: '4px' }}
+              // YENİ: Tooltip'in en üstünde "Saat 166" yazmasını sağlıyoruz
+              labelFormatter={(label) => `${label}`} 
             />
             
             <Line 

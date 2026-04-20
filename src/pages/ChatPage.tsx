@@ -8,7 +8,7 @@ interface Message {
   text: string;
   sender: 'user' | 'ai';
   timestamp: string;
-  chartData?: number[];
+  chartData?: any;
   portfolioData?: any[];
 }
 
