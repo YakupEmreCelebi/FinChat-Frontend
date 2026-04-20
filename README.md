@@ -10,7 +10,6 @@ Welcome to the frontend repository of **FinChat**, an intelligent financial assi
 - **Conversational UI:** A seamless chat interface mimicking a natural conversation with a financial analyst.
 - **Real-Time Streaming:** Utilizes Server-Sent Events (`text/event-stream`) to render AI responses with a smooth typewriter effect.
 - **Dynamic Charting:** Automatically renders interactive line charts (Recharts) based on dynamic metadata injected by the AI.
-- **Responsive Design:** Fully responsive UI built with Tailwind CSS, supporting both desktop and mobile views.
 - **Smart Error Handling:** Defensive programming implemented to handle legacy cache and prevent application crashes during structural data updates.
 
 ## 🛠️ Tech Stack
