@@ -14,7 +14,7 @@ export default function PriceChart({ data }: PriceChartProps) {
     // 1. DIŞ KUTU: h-48 sınıfını sildik, yüksekliği içeriğe göre otomatik ayarlanacak
     <div className="mt-4 p-4 bg-white dark:bg-fin-dark rounded-xl border border-slate-200 dark:border-slate-700 w-full">
       
-      <p className="text-xs font-semibold text-slate-500 mb-4">7 Günlük Fiyat Trendi (USD)</p>
+      <p className="text-xs font-semibold text-slate-500 mb-4">{data.length} Günlük Fiyat Trendi (USD)</p>
 
       {/* 2. İÇ KUTU: h-62.5 gibi geçersiz bir sınıf yerine grafiğe net bir yükseklik (h-48) verdik */}
       <div className="w-full h-48">
