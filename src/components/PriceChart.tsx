@@ -11,6 +11,10 @@ export default function PriceChart({ data }: PriceChartProps) {
   const title = isLegacy ? "Seçili Dönem Fiyat Trendi" : data.title;
   const intervalLabel = isLegacy ? "Nokta" : data.interval;
 
+  if (!prices || !Array.isArray(prices)) {
+    return <div className="p-4 text-sm text-red-500">Grafik verisi okunamadı. Lütfen sohbeti temizleyin.</div>;
+  }
+
   // X ekseninde (tooltip'te) görünecek yazıları dinamik oluşturuyoruz
   const formattedData = prices.map((price: number, index: number) => ({
     label: `${intervalLabel} ${index + 1}`,
