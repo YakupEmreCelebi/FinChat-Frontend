@@ -21,3 +21,68 @@ Welcome to the frontend repository of **FinChat**, an intelligent financial assi
 - **Markdown Rendering:** React-Markdown
 
 ---
+
+🚀 How to Run Locally (Docker - Level 3 Production Ready)
+This project is fully containerized using a Multi-Stage Build (Node.js for building, Nginx for serving). To spin up both the Frontend and Backend simultaneously with a single command, you need to set up a parent directory orchestrator.
+
+1. Directory Structure
+Create a parent folder and clone both repositories inside it so they sit side-by-side. Make sure the folder names match the compose file:
+
+Plaintext
+parent-folder/
+ ├── FinChatPhyton/       # (Backend Repository)
+ └── FinChat-Frontend/    # (Frontend Repository)
+2. Create the Orchestrator
+Create a docker-compose.yml file directly inside the parent-folder/ and paste the following configuration:
+
+YAML
+version: '3.8'
+
+services:
+  backend:
+    build: ./FinChatPhyton  # Finds the Dockerfile inside the backend folder
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./FinChatPhyton/.env # Reads the actual API keys from the backend's .env file
+    networks:
+      - finchat-network
+
+  frontend:
+    build: ./FinChat-Frontend # Finds the multi-stage Dockerfile inside the frontend folder
+    ports:
+      - "3000:80"     # Maps Nginx port 80 to localhost:3000
+    depends_on:
+      - backend       # Ensures backend starts before the frontend
+    networks:
+      - finchat-network
+
+networks:
+  finchat-network:
+    driver: bridge
+3. Run the Application
+Open your terminal in the parent-folder/ and run:
+
+Bash
+docker compose up --build
+Once the build is complete, you can access the application at http://localhost:3000.
+
+💻 How to Run Locally (Manual Mode)
+If you prefer not to use Docker, you can run the frontend development server manually:
+
+Navigate to the frontend directory:
+
+Bash
+cd FinChat-Frontend
+Install dependencies:
+Make sure you have Node.js installed (v20+ is recommended for Vite).
+
+Bash
+npm install
+Start the development server:
+
+Bash
+npm run dev
+Open your browser and navigate to http://localhost:5173 (or the port Vite provides).
+
+This project was developed as a Software Engineering Internship submission for Beyond Tech.
