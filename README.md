@@ -1,73 +1,99 @@
-# React + TypeScript + Vite
+# FinChat - AI-Powered Financial Assistant (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the frontend repository of **FinChat**, an intelligent financial assistant designed to provide real-time cryptocurrency data, interactive historical charts, and portfolio analysis through a conversational AI interface.
 
-Currently, two official plugins are available:
+🌍 **Live Demo:** https://finchat-ochre.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🔗 **Backend Repository:** [https://github.com/YakupEmreCelebi/FinChat-Backend](https://github.com/YakupEmreCelebi/FinChat-Backend)
 
-## React Compiler
+## ✨ Key Features
+- **Conversational UI:** A seamless chat interface mimicking a natural conversation with a financial analyst.
+- **Real-Time Streaming:** Utilizes Server-Sent Events (`text/event-stream`) to render AI responses with a smooth typewriter effect.
+- **Dynamic Charting:** Automatically renders interactive line charts (Recharts) based on dynamic metadata injected by the AI.
+- **Smart Error Handling:** Defensive programming implemented to handle legacy cache and prevent application crashes during structural data updates.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
+- **Framework:** React 18 with Vite
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Data Visualization:** Recharts
+- **Markdown Rendering:** React-Markdown
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 How to Run Locally (Docker - Level 3 Production Ready)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+This project is fully containerized using a **Multi-Stage Build** (Node.js for building, Nginx for serving). To spin up both the Frontend and Backend simultaneously with a single command, you need to set up a parent directory orchestrator.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Directory Structure
+Create a parent folder and clone both repositories inside it so they sit side-by-side. Make sure the folder names match the compose file:
+```text
+parent-folder/
+ ├── FinChatPhyton/       # (Backend Repository)
+ └── FinChat-Frontend/    # (Frontend Repository)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Create the Orchestrator
+Create a `docker-compose.yml` file directly inside the `parent-folder/` and paste the following configuration:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```yaml
+version: '3.8'
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+services:
+  backend:
+    build: ./FinChatPhyton
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./FinChatPhyton/.env
+    networks:
+      - finchat-network
+
+  frontend:
+    build: ./FinChat-Frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - finchat-network
+
+networks:
+  finchat-network:
+    driver: bridge
 ```
+
+### 3. Run the Application
+Open your terminal in the `parent-folder/` and run:
+```bash
+docker compose up --build
+```
+Once the build is complete, you can access the application at `http://localhost:3000`.
+
+---
+
+## 💻 How to Run Locally (Manual Mode)
+
+If you prefer not to use Docker, you can run the frontend development server manually:
+
+1. **Navigate to the frontend directory:**
+   ```bash
+   cd FinChat-Frontend
+   ```
+
+2. **Install dependencies:**
+   Make sure you have Node.js installed (v20+ is recommended for Vite).
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+4. Open your browser and navigate to `http://localhost:5173` (or the port Vite provides).
+
+---
+
+*This project was developed as a Software Engineering Internship submission for Beyond Tech.*
