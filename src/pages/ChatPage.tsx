@@ -27,15 +27,12 @@ export default function ChatPage() {
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Ekranın en altını işaretleyeceğimiz Ref (Çapa)
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // O çapaya yumuşakça (smooth) kaydırmayı sağlayan fonksiyon
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // messages dizisi her değiştiğinde (yeni kelime aktığında) aşağı kaydır
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -98,27 +95,23 @@ export default function ChatPage() {
         done = doneReading;
         const chunkValue = decoder.decode(value);
 
-        // METADATA işaretleyicisini kontrol et
         if (chunkValue.includes("[METADATA]")) {
           const parts = chunkValue.split("[METADATA]");
           const textPart = parts[0];
           const jsonString = parts[1];
 
-          // Önce işaretçiden kalan son metin parçasını ekle
           setMessages(prev => prev.map(msg => 
             msg.id === aiMsgId 
               ? { ...msg, text: msg.text + textPart } 
               : msg
           ));
 
-          // JSON verisini parse et ve uygun grafik state'ine yerleştir
           try {
             const parsedMetadata = JSON.parse(jsonString);
             setMessages(prev => prev.map(msg => {
               if (msg.id === aiMsgId) {
                 return {
                   ...msg,
-                  // GÜNCEL: Type kontrolü yerine veri var mı diye bakıyoruz
                   ...(parsedMetadata.chartData && { chartData: parsedMetadata.chartData }),
                   ...(parsedMetadata.portfolioData && { portfolioData: parsedMetadata.portfolioData })
                 };
@@ -129,7 +122,6 @@ export default function ChatPage() {
             console.error("Metadata Parse Hatası:", e);
           }
         } else {
-          // Normal metin akışı devam ediyorsa sadece text'e ekle
           setMessages(prev => prev.map(msg => 
             msg.id === aiMsgId 
               ? { ...msg, text: msg.text + chunkValue } 
@@ -164,7 +156,6 @@ export default function ChatPage() {
                 : 'bg-white dark:bg-fin-card text-slate-800 dark:text-slate-200 rounded-tl-none border border-slate-100 dark:border-slate-800'
             }`}>
               
-              {/* YENİ: Düz <p> etiketi yerine ReactMarkdown kullanıyoruz */}
               <div className="text-sm leading-relaxed overflow-hidden">
                 <ReactMarkdown
                   components={{
@@ -183,7 +174,6 @@ export default function ChatPage() {
                 </ReactMarkdown>
               </div>
 
-              {/* Grafiklerimiz (Aynı kalıyor) */}
               {msg.sender === 'ai' && msg.chartData && (
                 <PriceChart data={msg.chartData} />
               )}
@@ -197,7 +187,6 @@ export default function ChatPage() {
         ))}
         {isLoading && <div className="text-xs text-slate-500 animate-pulse">FinChat düşünüyor...</div>}
 
-        {/* YENİ: Otomatik kaydırma için ekranın sonuna koyduğumuz görünmez çapa */}
         <div ref={messagesEndRef} />
       </main>
 

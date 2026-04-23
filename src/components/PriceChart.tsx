@@ -5,7 +5,7 @@ interface PriceChartProps {
 }
 
 export default function PriceChart({ data }: PriceChartProps) {
-  // GÜVENLİK: Eğer localStorage'da eski sohbetlerden kalan ham sayı dizisi varsa çökmesin
+
   const isLegacy = Array.isArray(data);
   const prices = isLegacy ? data : data.prices;
   const title = isLegacy ? "Seçili Dönem Fiyat Trendi" : data.title;
@@ -15,7 +15,6 @@ export default function PriceChart({ data }: PriceChartProps) {
     return <div className="p-4 text-sm text-red-500">Grafik verisi okunamadı. Lütfen sohbeti temizleyin.</div>;
   }
 
-  // X ekseninde (tooltip'te) görünecek yazıları dinamik oluşturuyoruz
   const formattedData = prices.map((price: number, index: number) => ({
     label: `${intervalLabel} ${index + 1}`,
     price: price
@@ -24,7 +23,6 @@ export default function PriceChart({ data }: PriceChartProps) {
   return (
     <div className="mt-4 p-4 bg-white dark:bg-fin-dark rounded-xl border border-slate-200 dark:border-slate-700 w-full">
       
-      {/* BAŞLIK ARTIK DİNAMİK GELİYOR */}
       <p className="text-xs font-semibold text-slate-500 mb-4">{title}</p>
 
       <div className="w-full h-48">

@@ -21,7 +21,6 @@ export default function PortfolioChart({ data }: PortfolioChartProps) {
         Güncel Portföy Dağılımı
       </p>
       
-      {/* ÇÖZÜM 1: ResponsiveContainer'ın çökmesini engellemek için h-[250px] ile kesin yükseklik verdik */}
       <div className="relative w-full h-62.5">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
@@ -38,7 +37,6 @@ export default function PortfolioChart({ data }: PortfolioChartProps) {
               ))}
             </Pie>
             
-            {/* ÇÖZÜM 2: Typescript Hatası için value: any yaptık ve Number() ile güvene aldık */}
             <Tooltip 
               formatter={(value: any) => [`$${Number(value).toLocaleString()}`, 'Değer']}
               contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
@@ -47,7 +45,6 @@ export default function PortfolioChart({ data }: PortfolioChartProps) {
           </PieChart>
         </ResponsiveContainer>
 
-        {/* Ortadaki "Toplam Değer" yazısı */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none pb-6">
           <span className="text-xs text-slate-400">Toplam</span>
           <span className="text-sm font-bold text-slate-800 dark:text-slate-100">

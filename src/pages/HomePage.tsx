@@ -7,13 +7,11 @@ export default function HomePage({ onStartChat }: HomePageProps) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden">
       
-      {/* Mesh Gradient Arka Plan */}
       <div className="absolute top-[-10%] left-[-10%] w-72 h-72 bg-emerald-500/10 rounded-full blur-[120px]" />
       <div className="absolute bottom-[-10%] right-[-10%] w-72 h-72 bg-blue-500/10 rounded-full blur-[120px]" />
 
       <div className="max-w-md w-full backdrop-blur-md bg-white/90 dark:bg-fin-card/90 rounded-[2.5rem] shadow-2xl p-10 text-center border border-white/20 dark:border-slate-700/50 transform transition-all hover:shadow-emerald-500/5">
         
-        {/* Logo */}
         <div className="relative w-24 h-24 mx-auto mb-8 group">
           <div className="absolute inset-0 bg-emerald-500 blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
           <div className="relative flex items-center justify-center w-full h-full bg-gradient-to-tr from-emerald-600 to-teal-400 text-white rounded-3xl shadow-lg rotate-3 group-hover:rotate-0 group-hover:scale-105 transition-all duration-300 ease-out">
